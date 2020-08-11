@@ -1,0 +1,43 @@
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+
+using namespace std;
+
+int arraySize;
+int triangle[100][100];
+int cache2[100][100];
+
+int path2(int y, int x)
+{
+	//기저사례
+	if (y == arraySize - 1) 
+		return triangle[y][x];
+	//메모이제이션
+	int &ret = cache2[y][x];
+	
+	if (ret != -1)
+		return ret;
+	
+	return ret = max(path2(y + 1, x), path2(y + 1, x + 1)) + triangle[y][x];
+}
+
+int main(int argc, char * argv[])
+{
+	int Testcase;
+	cin >> Testcase;
+
+	for (int i = 0; i < Testcase; i++)
+	{
+		cin >> arraySize;
+		memset(cache2, -1, sizeof(cache2));
+
+		for (int i = 0; i < arraySize; i++)
+		for (int j = 0; j < i + 1; j++)
+		{
+			cin >> triangle[i][j];
+		}
+		cout << path2(0, 0) << endl;
+	}
+	return 0;
+}
