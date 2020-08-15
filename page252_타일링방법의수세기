@@ -1,0 +1,42 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+const int MOD = 1000000007;
+
+int cache[101];
+//2*width 크기의 사각형을 채우는 방법의 수를 MOD로 나눈 나머지를 반환한다.
+int tiling(int width)
+{
+	//기저사례: width가 1 이하일 때
+	if (width <= 1)
+		return 1;
+	//메모이제이션
+	int &ret = cache[width];
+	if (ret != -1)
+		return ret;
+	return ret = (tiling(width - 2) + tiling(width - 1)) % MOD;
+}
+
+int main(int argc, char*argv[])
+{
+	int Testcase;
+	cin >> Testcase;
+
+	for (int i = 0; i < Testcase; i++)
+	{
+		int num;
+		cin >> num;
+		memset(cache, -1, sizeof(cache));
+		cout << tiling(num) << endl;
+	}
+
+	return 0;
+}
+/*자르는 시선을 세로가 아니라 가로로 봐야한다. 멍청하게 세로로 자른다고 생각함
+<-n-2->....<n-1>
+|-------------------------------
+|								|
+|								|
+|-------------------------------
+*/
