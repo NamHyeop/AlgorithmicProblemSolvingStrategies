@@ -65,5 +65,31 @@ vector<int> topologicalSort()
 
 int main(int argc, char *argv[])
 {
+	cin.tie(0);
+	ios_base::sync_with_stdio(0);
 
+	int Testcase;
+	cin >> Testcase;
+
+	for (int i = 0; i < Testcase; i++)
+	{
+		int n;
+		cin >> n;
+
+		vector<string> words(n);
+		for (int i = 0; i < n; i++)
+			cin >> words[i];
+
+		makeGraph(words);
+
+		vector<int> ret = topologicalSort();
+
+		if (ret.empty())
+			cout << "INVALID HYPOTHESIS";
+		else
+		for (int i = 0; i < ret.size(); i++)
+			cout << char(ret[i] + 'a');
+		cout << "\n";
+	}
+	return 0;
 }
